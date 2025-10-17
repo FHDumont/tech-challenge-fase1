@@ -7,6 +7,7 @@ from typing import Dict, List
 import logging
 import uuid
 from api.models import TokenData
+import os
 
 # Reutiliza o logger definido em main.py
 logger = logging.getLogger("api_logger")
@@ -15,6 +16,10 @@ logger = logging.getLogger("api_logger")
 SECRET_KEY = "minha-senha"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+# Obtém o caminho do arquivo
+DATA_FILE = os.getenv("DATA_FILE", "data/book.csv")  # Fallback para data/book.csv
+
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/v1/auth/login")
 
@@ -41,7 +46,7 @@ def load_books_data() -> pd.DataFrame:
     global books_df
     try:
         books_df = pd.read_csv(
-            "data/books.csv",
+            DATA_FILE,
             dtype={"id": int, "title": str, "href": str, "price": float, "rating": int, "availability": str, "category": str, "image_url": str},
         )
         logger.info("Dados do CSV carregados com sucesso")
