@@ -1,8 +1,9 @@
 services:
   api:
-    build:
-      context: .
-      dockerfile: Dockerfile.api
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile.api
+    image: fernandodumont/fiap-fase-1-api:1.0
     ports:
       - "8000:8000"
     volumes:
@@ -14,9 +15,10 @@ services:
       - app-network
 
   dashboard:
-    build:
-      context: .
-      dockerfile: Dockerfile.dashboard
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile.dashboard
+    image: fernandodumont/fiap-fase-1-dashboard:1.0
     ports:
       - "8501:8501"
     volumes:
