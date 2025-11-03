@@ -31,11 +31,10 @@ async def get_training_data(df: pd.DataFrame = Depends(get_books_data)):
 
 
 @router.post("/predictions")
-async def make_predictions(input_data: PredictionInput):
+async def make_predictions():
     """
-    Recebe features e retorna predições (mock para exemplo).
+    Recebe features e retorna predições (apenas um mock).
     """
-    logger.info(f"Predições solicitadas para features: {input_data.features}")
+    logger.info(f"Predições solicitadas")
     # Mock: retorna a soma dos valores das features como predição
-    prediction = sum(input_data.features.values())
-    return {"prediction": prediction}
+    return {"prediction": "it's a simple example"}
