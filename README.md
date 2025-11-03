@@ -54,7 +54,7 @@ Para rodar com Docker (local):
 Para rodar sem Docker (local):
 
 - Execute o arquivo run-app.sh
-- Em outro terminal, execute o arquivo dashboard.sh
+- Em outro terminal, execute o arquivo run-dashboard.sh
 
 Para acessar as APIs
 
@@ -85,6 +85,16 @@ A API usa FastAPI, com documentação automática em `/docs` (Swagger UI).
 - **POST /api/v1/login**: Endpoint para autenticação e obtenção de token JWT. Necessário informar username e password. Para efeitos de testes, utilizar username=admin e password=admin123. O token retornado tem duração de 30 minutos.
 - **POST /api/v1/refresh**: Se a API for chamada antes do token expirar, ele será novado por mais 30 minutos. O token anterior será revogado.
 - **POST /api/v1/scraping/trigger**: Necessário passar o token recebido no login no Header como "Baerer Token" para autenticar. Será realizada o scraping dos livros do site https://books.toscrape.com e salvos no CSV.
+
+### Logs
+
+Será criado o diretório logs com os seguintes arquivos:
+
+-- **api-error.log**: todos os erros ocorridos em APIs.
+-- **api.log**: logs gerados pelas apis.
+-- **http.log**: dados para auditoria e monitoramento com ferramentas específicas (por exemplo Splunk). Exemplo de log: 192.168.65.1 "GET http://localhost:8000/api/v1/books HTTP/1.1" 200 "PostmanRuntime/7.49.0" 0.03s
+-- **scrapper-error.log**: todos os erros ocorridos no scraping.
+-- **scrapper.log**: logs gerados pelo scraping
 
 ## Deploy
 
