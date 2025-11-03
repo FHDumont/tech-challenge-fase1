@@ -1,0 +1,15 @@
+Repositório
+https://github.com/FHDumont/tech-challenge-fase1
+
+Vídeo
+https://www.youtube.com/watch?v=O3u0tmiDC-I
+
+Swagger UI
+https://fiap.fernando.com.br/docs
+
+Dashboard
+https://fiap.fernando.com.br/dashboard/
+
+Exemplo API
+https://fiap.fernando.com.br/api/v1/books
+https://fiap.fernando.com.br/api/v1/categories
