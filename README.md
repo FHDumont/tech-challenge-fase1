@@ -16,14 +16,16 @@ O projeto inclui:
 
 ```mermaid
 graph TD
-    A[Web Scraping: https://books.toscrape.com/] --> B[Extração: Categorias & Paginação]
-    B --> C[Transformação: Parse HTML com BeautifulSoup]
-    C --> D[Armazenamento: CSV]
-    D --> E[API FastAPI: Queries no CVS via Panda]
-    E --> F[Endpoints: /books, /books, /search, /categories, /health]
-    F --> G[Consumo: Cientistas de Dados / Serviços ML]
-    G --> H[Integração ML: Features para treinamento/recomendações]
-    I[Docker Compose: mongo + api + scraper] --> D
+    A[Docker Compose: api + scraper] --> B[API FastAPI]
+    B --> C[Endpoints abertos]
+    B --> D[Autenticação]
+    D --> E[Endpoints Fechados]
+    E --> F[Scrap Web & Salvar CSV]
+    E --> G[Outros endpoints]
+    C --> L
+    G --> L
+    F --> L
+    L[Queries no CSV via Panda] --> X[Resultados das APIs]
 ```
 
 **Descrição da Arquitetura:**
@@ -39,27 +41,54 @@ graph TD
 3. Instale Python 3.13+ (baixe em https://www.python.org/downloads/).
 4. Crie e ative um ambiente virtual: `python3.13 -m venv env && source env/bin/activate` (ou `env\Scripts\activate` no Windows).
 5. Instale as dependências: `pip install -r requirements.txt`
-6. Instale Docker para rodar com containers.
+
+## Instruções para Execução
+
+Para rodar com Docker (local):
+
+- Instale Docker e execute o arquivo build.sh para fazer build das imagens localmente
+- Se desejar fazer push para o repositório do docker (hub.docker.com), execute o arquivo push.sh.
+- Serão geradas as imagens para a plataforma amd64 como arm64.
+- Execute `docker-compose up -d`
 
 Para rodar sem Docker (local):
 
-## Instruções para Execução
+- Execute o arquivo run-app.sh
+- Em outro terminal, execute o arquivo dashboard.sh
+
+Para acessar as APIs
+
+Independentemente se foi executado com Docker ou não, o acesso local se dá pelo mesmo endereço:
+
+- Acesse: http://localhost:8000/docs para a documentação das API's
+- Acesse: http://localhost:8000/api/v1/<nome_api>, conforme documentação
+- Acesse: http://localhost:8501/ para o dashboard
 
 ## Documentação das Rotas da API
 
 A API usa FastAPI, com documentação automática em `/docs` (Swagger UI).
 
-### Endpoints Obrigatórios
+### Endpoints abertos
 
 - **GET /api/v1/books**: Lista todos os livros disponíveis.
-- **GET /api/v1/books/{id}**: Retorna detalhes de um livro específico pelo ID.
 - **GET /api/v1/books/search?title={title}&category={category}**: Busca livros por título e/ou categoria (case-insensitive).
 - **GET /api/v1/categories**: Lista todas as categorias únicas.
 - **GET /api/v1/health**: Verifica status da API e contagem de livros.
+- **GET /api/v1/stats/overview**: Lista estatísticas dos livros (total de livros, média de preço e total de livros por rating)
+- **GET /api/v1/stats/categories**: Lista estatísticas das categorias (nome da categoria, total de livros, média de preço, preço mínimo e preço máximo)
+- **GET /api/v1/top-rated**: Lista os livros com a melhor avaliação (rating 5).
+- **GET /api/v1/price-range**: Filtra livros dentro de uma faixa de preço específica, informando o preço mínimo e máximo.
+- **GET /api/v1/books/{id}**: Retorna detalhes de um livro específico pelo ID.
+
+### Endpoints com autenticação
+
+- **POST /api/v1/login**: Endpoint para autenticação e obtenção de token JWT. Necessário informar username e password. Para efeitos de testes, utilizar username=admin e password=admin123. O token retornado tem duração de 30 minutos.
+- **POST /api/v1/refresh**: Se a API for chamada antes do token expirar, ele será novado por mais 30 minutos. O token anterior será revogado.
+- **POST /api/v1/scraping/trigger**: Necessário passar o token recebido no login no Header como "Baerer Token" para autenticar. Será realizada o scraping dos livros do site https://books.toscrape.com e salvos no CSV.
 
 ## Deploy
 
-A API está deployada em: https://fiap.fernando.com.br, exemplos de endpoints:
+A API está em execução no endereço https://fiap.fernando.com.br, exemplos de endpoints:
 
 - **https://fiap.fernando.com.br/docs**
 - **https://fiap.fernando.com.br/api/v1/books**
