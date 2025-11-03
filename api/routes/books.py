@@ -59,7 +59,7 @@ async def health_check(df: pd.DataFrame = Depends(get_books_data)):
     return status
 
 
-@router.get("/stats-overview")
+@router.get("/stats/overview")
 async def get_stats_overview(df: pd.DataFrame = Depends(get_books_data)):
     """
     Retorna estatísticas gerais da coleção.
