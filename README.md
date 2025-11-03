@@ -19,14 +19,15 @@ graph TD
     A[Docker Compose: api + scraper] --> B[API FastAPI]
     B --> C[Endpoints abertos]
     B --> D[Autenticação]
-    D --> E[Endpoints Fechados]
-    E --> F[Scrap Web & Salvar CSV]
-    E --> G[Outros endpoints]
+    D --> F[Scrap Web & Salvar CSV]
+    D --> G[Outros endpoints]
     C --> L
     G --> L
     F --> L
     L[Queries no CSV via Panda] --> X[Resultados das APIs]
 ```
+
+Obs.: desenho da arquitetura criado em https://mermaid.live/.
 
 **Descrição da Arquitetura:**
 
