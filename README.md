@@ -114,4 +114,5 @@ A API está em execução no endereço https://fiap.fernando.com.br, exemplos de
 
 ## Vídeo de Apresentação
 
-Link do vídeo: https://youtu.be/XXX.
+Link do vídeo no [YouTube](https://youtu.be/O3u0tmiDC-I)
+
