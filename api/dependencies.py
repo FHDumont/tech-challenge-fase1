@@ -18,7 +18,7 @@ ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 # Obtém o caminho do arquivo
-DATA_FILE = os.getenv("DATA_FILE", "data/book.csv")  # Fallback para data/book.csv
+DATA_FILE = os.getenv("DATA_FILE", "data/books.csv")  # Fallback para data/book.csv
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/v1/auth/login")
