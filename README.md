@@ -86,15 +86,21 @@ A API usa FastAPI, com documentação automática em `/docs` (Swagger UI).
 - **POST /api/v1/refresh**: Se a API for chamada antes do token expirar, ele será novado por mais 30 minutos. O token anterior será revogado.
 - **POST /api/v1/scraping/trigger**: Necessário passar o token recebido no login no Header como "Baerer Token" para autenticar. Será realizada o scraping dos livros do site https://books.toscrape.com e salvos no CSV.
 
+### Endpoints para Mahcile Learning
+
+- **GET /api/v1/ml/features**: Retorna dados formatados para features de ML (ex.: preço, rating, dummy variables para categoria).
+- **GET /api/v1/ml/trainning-data**: Retorna dataset completo para treinamento de ML.
+- **POST /api/v1/ml/predictions**: Recebe features e retorna predições (apenas um mock).
+
 ### Logs
 
 Será criado o diretório logs com os seguintes arquivos:
 
--- **api-error.log**: todos os erros ocorridos em APIs.
--- **api.log**: logs gerados pelas apis.
--- **http.log**: dados para auditoria e monitoramento com ferramentas específicas (por exemplo Splunk). Exemplo de log: 192.168.65.1 "GET http://localhost:8000/api/v1/books HTTP/1.1" 200 "PostmanRuntime/7.49.0" 0.03s
--- **scrapper-error.log**: todos os erros ocorridos no scraping.
--- **scrapper.log**: logs gerados pelo scraping
+- **api-error.log**: todos os erros ocorridos em APIs.
+- **api.log**: logs gerados pelas apis.
+- **http.log**: dados para auditoria e monitoramento com ferramentas específicas (por exemplo Splunk). Exemplo de log: 192.168.65.1 "GET http://localhost:8000/api/v1/books HTTP/1.1" 200 "PostmanRuntime/7.49.0" 0.03s
+- **scrapper-error.log**: todos os erros ocorridos no scraping.
+- **scrapper.log**: logs gerados pelo scraping
 
 ## Deploy
 
